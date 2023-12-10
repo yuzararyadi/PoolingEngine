@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "PoolingEngine.Protos";
+
+
+service ManageDeviceItem{
+	rpc CreateDevice(CreateDeviceItemRequest) returns(CreateDeviceItemResponse);
+}
+
+message CreateDeviceItemRequest{
+	string DeviceName = 1;
+	string Description = 2;
+}
+
+message CreateDeviceItemResponse{
+	int32 id = 1;
+	string DeviceName = 2;
+}

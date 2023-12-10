@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "PoolingEngine.Protos";
+
+service ManageTagItem{
+	rpc CreateTag(CreateTagItemRequest) returns(CreateTagItemResponse);
+}
+
+message CreateTagItemRequest{
+	string TagName = 1;
+	string Description = 2;
+	string DataType = 3;
+}
+
+message CreateTagItemResponse{
+	int32 id = 1;
+	string TagName = 2;
+}

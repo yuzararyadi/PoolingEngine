@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "PoolingEngine.Protos";
+import "google/protobuf/timestamp.proto";
+
+service PoolOpcTag{
+ rpc poolTag(poolOpcTagRequest) returns(poolOpcTagResponse);
+}
+
+message poolOpcTagRequest{
+	int32 DeviceItemId =1;
+	int32 TagItemId = 2;
+	string Priority = 3;
+}
+message poolOpcTagResponse{
+        string RequestItemId = 2;
+        int32 DeviceItemId = 3;
+        int32 TagItemId = 4;
+        string Value = 5;
+        google.protobuf.Timestamp TimeStamp = 6;
+}
