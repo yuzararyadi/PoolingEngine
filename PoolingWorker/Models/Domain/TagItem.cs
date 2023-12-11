@@ -5,11 +5,6 @@ namespace PoolingWorker.Models.Domain
 {
     public class TagItem
     {
-        public TagItem()
-        {
-            this.DeviceItems = new HashSet<DeviceItem>();
-            this.TagGroups = new HashSet<TagGroup>();
-        }
         public int Id { get; set; }
         [Required]
         [MaxLength(200)]
@@ -19,8 +14,8 @@ namespace PoolingWorker.Models.Domain
         public string? Description { get; set; }
         public EnumDataType DataType { get; set; }
 
-        public ICollection<DeviceItem>? DeviceItems { get; set; }
-        public ICollection<TagGroup>? TagGroups { get; set; }
+        public ICollection<DeviceItem>? DeviceItems { get; set; } = new HashSet<DeviceItem>();
+        public ICollection<TagGroup>? TagGroups { get; set; } = new HashSet<TagGroup>();
     }
 
 }

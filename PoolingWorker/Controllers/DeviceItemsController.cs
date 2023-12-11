@@ -3,9 +3,11 @@ using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Any;
 using PoolingWorker.Data;
 using PoolingWorker.Models.Domain;
 using PoolingWorker.Models.Dtos;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PoolingWorker.Controllers
 {
@@ -99,7 +101,29 @@ namespace PoolingWorker.Controllers
         {
             List<TagItem> ListTagItems = new List<TagItem>();
             List<TagGroup> ListTagGroup = new List<TagGroup>();
- 
+
+            var deviceItem = await _dbContext.DeviceItems.FindAsync(id);
+            if (deviceItem == null) return NotFound();
+            var existingTagGroup = _dbContext.DeviceItems.Include(c => c.TagGroups).Where(x => x.Id == id);
+
+            await existingTagGroup.ForEachAsync(x =>
+            {
+                if(x.TagGroups!=null)
+                {
+                    ListTagGroup.AddRange(x.TagGroups);
+                }
+                   
+            });
+
+            var existingTagItems = _dbContext.DeviceItems.Include(c => c.TagItems).Where(x => x.Id == id);
+            await existingTagItems.ForEachAsync(x =>
+            {
+                if (x.TagItems != null)
+                {
+                    ListTagItems.AddRange(x.TagItems);
+                }
+            });
+
             foreach (int Tgid in TagGroupIds)
             {
                 var tagGroup = _dbContext.TagGroups.Find(Tgid);
@@ -115,22 +139,11 @@ namespace PoolingWorker.Controllers
                             ListTagItems.AddRange(x.TagItems);
                         }
                     } );
+
                 
             }
-            
-            var deviceItem = _dbContext.DeviceItems.Find(id);
-            if (deviceItem == null) return NotFound();
-            if (deviceItem.TagItems != null)
-                if(deviceItem.TagItems.Count > 0)
-                    ListTagItems = (List<TagItem>)ListTagItems.Union(deviceItem.TagItems);
-            
-            deviceItem.TagItems = ListTagItems.Distinct().ToList();
-            
-            if (deviceItem.TagGroups != null)
-                if(deviceItem.TagGroups.Count > 0)
-                    ListTagGroup = (List<TagGroup>)ListTagGroup.Union(deviceItem.TagGroups);
-            deviceItem.TagGroups = ListTagGroup;
-            //deviceItem.TagGroups.Add(ListTagGroup);
+            deviceItem.TagGroups = ListTagGroup.Distinct().ToArray();
+            deviceItem.TagItems = ListTagItems.Distinct().ToArray();
             _dbContext.Entry(deviceItem).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return NoContent();
