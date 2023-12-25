@@ -9,11 +9,12 @@ namespace PoolingEngine.Domain.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-        T GetById(int id);
+        T? GetById(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
+        bool UpdateById(int id, T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
     }
