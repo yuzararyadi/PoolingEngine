@@ -8,13 +8,19 @@ namespace PoolingEngine.API.Helper.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<DeviceItem, DeviceItemDto>();
-            CreateMap<DeviceItemDto, DeviceItem>();
+            CreateMap<DeviceItem, DeviceItemDto>()
+                .ForMember(dto => dto.TagGroups, opt => opt.MapFrom(x => x.TagGroups));
+                
+            CreateMap<DeviceItemDto, DeviceItem>()
+                .ForMember(di => di.TagGroups, dto => dto.MapFrom(x => x.TagGroups));
 
             CreateMap<RequestItem, RequestItemDto>();
 
-            CreateMap<TagGroup, TagGroupDto>();
-            CreateMap<TagGroupDto, TagGroup>();
+            CreateMap<TagGroup, TagGroupDto>()
+                .ForMember(dto => dto.TagItems, opt => opt.MapFrom(x => x.TagItems));
+
+            CreateMap<TagGroupDto, TagGroup>()
+                .ForMember(tg => tg.TagItems, dto => dto.MapFrom(x => x.TagItems));
 
             CreateMap<TagItem, TagItemDto>();
             CreateMap<TagItemDto, TagItem>();
