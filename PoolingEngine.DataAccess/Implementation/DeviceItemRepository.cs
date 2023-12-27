@@ -1,4 +1,5 @@
-﻿using PoolingEngine.DataAccess.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PoolingEngine.DataAccess.Context;
 using PoolingEngine.Domain.Entities;
 using PoolingEngine.Domain.Repository;
 using System;
@@ -17,5 +18,21 @@ namespace PoolingEngine.DataAccess.Implementation
         {
             _dbcontext = context;
         }
+
+        public void updatelinkTagGroups(DeviceItem deviceItem, List<TagGroup> tagGroups)
+        {
+            var evalDeviceItem = _dbcontext.DeviceItems
+                .Include(x => x.TagGroups)
+                .FirstOrDefault(g => g.Id == deviceItem.Id);
+
+            evalDeviceItem.TagGroups.Clear();
+
+            // add the new items
+            foreach (var tagGroup in tagGroups)
+            {
+                evalDeviceItem.TagGroups.Add(tagGroup);
+            }
+        }
+
     }
 }

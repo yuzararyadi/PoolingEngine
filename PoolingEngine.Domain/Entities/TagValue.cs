@@ -4,7 +4,6 @@ namespace PoolingEngine.Domain.Entities
 {
     public class TagValue
     {
-        [Key]
         public int Id { get; set; }
         [Required]
         public string RequestItemId { get; set; } = string.Empty;
