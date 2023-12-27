@@ -9,5 +9,6 @@ namespace PoolingEngine.Domain.Repository
 {
     public interface IDeviceItemRepository : IGenericRepository<DeviceItem>
     {
+        void updatelinkTagGroups(DeviceItem deviceItem, List<TagGroup> tagGroups);
     }
 }

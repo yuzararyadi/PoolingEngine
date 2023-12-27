@@ -22,14 +22,14 @@ namespace PoolingEngine.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var DeviceItems = _unitOfWork.DeviceItem.GetAll();
-            var DeviceItemsDto = _mapper.Map<List<DeviceItemDto>>(DeviceItems);
-            return Ok(DeviceItemsDto);
+            var deviceItems = _unitOfWork.DeviceItem.GetAllwithChild(x => x.TagGroups);
+            var deviceItemsDto = _mapper.Map<List<DeviceItemDto>>(deviceItems);
+            return Ok(deviceItemsDto);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var deviceItem = _unitOfWork.DeviceItem.GetById(id);
+            DeviceItem deviceItem = _unitOfWork.DeviceItem.GetAllwithChild(x => x.TagGroups).Where(y => y.Id == id).FirstOrDefault();
             if (deviceItem == null) return NotFound();
             var deviceItemDto = _mapper.Map<DeviceItemDto>(deviceItem);
             return Ok(deviceItemDto);
@@ -66,5 +66,22 @@ namespace PoolingEngine.API.Controllers
             _unitOfWork.Save();
             return Ok(deviceItemDto);
         }
+
+        [HttpPut("{id}/linkTagGroup")]
+        public IActionResult LinkTagGroup(int id, List<int> tagGroupIds)
+        {
+            var deviceItem = _unitOfWork.DeviceItem.GetById(id);
+            if (deviceItem == null) return NotFound();
+            List<TagGroup> tagGroups = new List<TagGroup>();
+            foreach (int tagGroupId in tagGroupIds)
+            {
+                var tagGroup = _unitOfWork.TagGroup.GetById(tagGroupId);
+                if (tagGroup != null) tagGroups.Add(tagGroup);
+            }
+            _unitOfWork.DeviceItem.updatelinkTagGroups(deviceItem, tagGroups);
+            _unitOfWork.Save();
+            return Ok();
+        }
+
     }
 }
