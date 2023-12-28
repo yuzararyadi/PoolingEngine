@@ -26,21 +26,12 @@ namespace PoolingEngine.DataAccess.Implementation
                 .Include(x => x.TagItems)
                 .FirstOrDefault(g => g.Id == tagGroup.Id);
 
-            var linkedTagItems = evalTagGroup.TagItems.ToList();
+            evalTagGroup.TagItems.Clear();
 
-            foreach (var linkedTagItem in linkedTagItems)
-            {
-                var tagItem = tagItems.Where(x => x.Id == linkedTagItem.Id).FirstOrDefault();
-                if (tagItem != null) 
-                    _dbcontext.Entry(linkedTagItem).CurrentValues.SetValues(tagItem);
-                else 
-                    _dbcontext.Remove(linkedTagItem);
-            }
-
+            // add the new items
             foreach (var tagItem in tagItems)
             {
-                if (linkedTagItems.All(x => x.Id != tagItem.Id))
-                    evalTagGroup.TagItems.Add(tagItem);
+                evalTagGroup.TagItems.Add(tagItem);
             }
         }
 
