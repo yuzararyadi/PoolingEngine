@@ -4,6 +4,7 @@ using PoolingEngine.Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,15 @@ namespace PoolingEngine.DataAccess.Implementation
         {
             return _dbcontext.Set<T>().ToList();
         }
+        public IQueryable<T> GetAllwithChild(params Expression<Func<T, object>>[] includeExpressions)
+        {
+            IQueryable<T> set = _dbcontext.Set<T>();
+            foreach (var includeExpression in includeExpressions)
+            {
+                set = set.Include(includeExpression);
+            }
+            return set;
+        }
         public bool UpdateById(int id, T entity)
         {
             if (GetById(id) == null) return false; 
@@ -48,7 +58,6 @@ namespace PoolingEngine.DataAccess.Implementation
         {
             return _dbcontext.Set<T>().Find(id);
         }
-
 
         public void Remove(T entity)
         {

@@ -11,6 +11,7 @@ namespace PoolingEngine.Domain.Repository
     {
         T? GetById(int id);
         IEnumerable<T> GetAll();
+        IQueryable<T> GetAllwithChild(params Expression<Func<T, object>>[] includeExpressions);
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);

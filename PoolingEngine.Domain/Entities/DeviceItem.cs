@@ -12,6 +12,5 @@ namespace PoolingEngine.Domain.Entities
         public string? Description { get; set; }
 
         public ICollection<TagGroup>? TagGroups { get; set; } = new HashSet<TagGroup>();
-        public ICollection<TagItem>? TagItems { get; set; } = new HashSet<TagItem>();
     }
 }

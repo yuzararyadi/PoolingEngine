@@ -14,7 +14,6 @@ namespace PoolingEngine.Domain.Entities
         public string? Description { get; set; }
         public EnumDataType DataType { get; set; }
 
-        public ICollection<DeviceItem>? DeviceItems { get; set; } = new HashSet<DeviceItem>();
         public ICollection<TagGroup>? TagGroups { get; set; } = new HashSet<TagGroup>();
     }
 

@@ -1,4 +1,5 @@
-﻿using PoolingEngine.DataAccess.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PoolingEngine.DataAccess.Context;
 using PoolingEngine.Domain.Entities;
 using PoolingEngine.Domain.Repository;
 using System;
@@ -16,6 +17,22 @@ namespace PoolingEngine.DataAccess.Implementation
         public TagGroupRepository(AppDbContext context) : base(context)
         {
             _dbcontext = context;
+        }
+
+
+        public void UpdateLinkTagItems(TagGroup tagGroup, List<TagItem> tagItems)
+        {
+            var evalTagGroup = _dbcontext.TagGroups
+                .Include(x => x.TagItems)
+                .FirstOrDefault(g => g.Id == tagGroup.Id);
+
+            evalTagGroup.TagItems.Clear();
+
+            // add the new items
+            foreach (var tagItem in tagItems)
+            {
+                evalTagGroup.TagItems.Add(tagItem);
+            }
         }
 
     }
