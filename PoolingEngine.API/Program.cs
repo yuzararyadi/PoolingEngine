@@ -18,6 +18,9 @@ builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
 );
+builder.Services.AddDbContext<InMemoryDbContext>(options =>
+    options.UseInMemoryDatabase(databaseName: "RequestPooling")
+);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
