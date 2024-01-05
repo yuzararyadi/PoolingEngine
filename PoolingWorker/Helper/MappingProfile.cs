@@ -11,7 +11,7 @@ namespace PoolingWorker.Helper
             CreateMap<DeviceItem,  DeviceItemDto>();
             CreateMap<TagItem, TagItemDto>();
             CreateMap<TagValue, TagValueDto>();
-            CreateMap<RequestItem, RequestItemDto>();
+            CreateMap<RequestItem, RequestPoolingDto>();
             CreateMap<TagGroup, TagGroupDto>();
         }
     }

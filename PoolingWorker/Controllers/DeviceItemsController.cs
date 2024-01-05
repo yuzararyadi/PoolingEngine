@@ -55,7 +55,7 @@ namespace PoolingWorker.Controllers
             await _dbContext.AddAsync(deviceItem);
             await _dbContext.SaveChangesAsync();
             deviceItemDto.Id = deviceItem.Id;
-            return CreatedAtAction(nameof(CreateDevice), new {id = deviceItem.Id}, deviceItemDto);
+            return CreatedAtAction(nameof(CreateDevice), new { deviceItem.Id }, deviceItemDto);
         }
 
         // PUT api/DeviceItems/5

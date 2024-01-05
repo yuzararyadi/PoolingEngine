@@ -8,10 +8,9 @@ namespace PoolingWorker.Models.Domain
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public EnumPoolingPriority Priority { get; set; } = EnumPoolingPriority.LOW;
-
-        public DeviceItem DeviceItem { get; set; }
-        public TagItem TagItem { get; set; }
+        [Required] public DeviceItem DeviceItem { get; set; }
+        [Required] public IEnumerable<TagItem> TagItem { get; set; } = new List<TagItem>();
     }
 }
