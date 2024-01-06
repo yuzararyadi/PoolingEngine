@@ -5,7 +5,13 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingEngineGRPC", "PoolingEngine\PoolingEngineGRPC.csproj", "{621BC5BD-0767-4CCB-8D40-53C97E17C913}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingWorker", "PoolingWorker\PoolingWorker.csproj", "{544A2391-1D57-4638-9874-E6229A09EB2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingWorker", "PoolingWorker\PoolingWorker.csproj", "{544A2391-1D57-4638-9874-E6229A09EB2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.API", "PoolingEngine.API\PoolingEngine.API.csproj", "{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.Domain", "PoolingEngine.Domain\PoolingEngine.Domain.csproj", "{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.DataAccess", "PoolingEngine.DataAccess\PoolingEngine.DataAccess.csproj", "{37C4499D-C44E-48A0-8B2E-9FE2CC024910}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{544A2391-1D57-4638-9874-E6229A09EB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{544A2391-1D57-4638-9874-E6229A09EB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{544A2391-1D57-4638-9874-E6229A09EB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C4499D-C44E-48A0-8B2E-9FE2CC024910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C4499D-C44E-48A0-8B2E-9FE2CC024910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C4499D-C44E-48A0-8B2E-9FE2CC024910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C4499D-C44E-48A0-8B2E-9FE2CC024910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

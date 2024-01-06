@@ -11,12 +11,14 @@ namespace PoolingEngine.DataAccess.Implementation
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _dbcontext;
+        private readonly InMemoryDbContext _inMemoryDbContext;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context, InMemoryDbContext IMContext)
         {
             _dbcontext = context;
+            _inMemoryDbContext = IMContext;
             DeviceItem = new DeviceItemRepository(_dbcontext);
-            RequestItem = new RequestItemRepository(_dbcontext);
+            RequestItem = new RequestItemRepository(_inMemoryDbContext);
             TagGroup = new TagGroupRepository(_dbcontext);
             TagItem = new TagItemRepository(_dbcontext);
             TagValue = new TagValueRepository(_dbcontext);
@@ -39,6 +41,10 @@ namespace PoolingEngine.DataAccess.Implementation
         public int Save()
         {
             return _dbcontext.SaveChanges();
+        }
+        public int InMemorySave()
+        {
+            return _inMemoryDbContext.SaveChanges();
         }
     }
 }
