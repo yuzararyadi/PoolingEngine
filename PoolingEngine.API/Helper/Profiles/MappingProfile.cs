@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PoolingEngine.API.Dtos;
 using PoolingEngine.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace PoolingEngine.API.Helper.Profiles
 {
@@ -15,7 +16,8 @@ namespace PoolingEngine.API.Helper.Profiles
                 .ForMember(di => di.TagGroups, dto => dto.MapFrom(x => x.TagGroups));
 
             CreateMap<RequestItem, RequestItemDto>();
-
+            CreateMap<RequestItemDto, RequestItem>();
+            
             CreateMap<TagGroup, TagGroupDto>()
                 .ForMember(dto => dto.TagItems, opt => opt.MapFrom(x => x.TagItems));
 
@@ -26,6 +28,8 @@ namespace PoolingEngine.API.Helper.Profiles
             CreateMap<TagItemDto, TagItem>();
 
             CreateMap<TagValue, TagValueDto>();
+
+            CreateMap<RequestPoolingDto, RequestPooling>();
 
         }
 

@@ -6,13 +6,12 @@ namespace PoolingEngine.Domain.Entities
 {
     public class RequestItem
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
+        public string RequestPoolingId { get; set; } = string.Empty;
         public EnumPoolingPriority Priority { get; set; } = EnumPoolingPriority.LOW;
-        [Required] 
-        public DeviceItem? DeviceItem { get; set; }
-        [Required] 
-        public IEnumerable<TagItem> TagItem { get; set; } = new HashSet<TagItem>();
+        public int? DeviceItemId { get; set; }
+        //public IEnumerable<int> TagGroupsIds { get; set; } = new List<int>();
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public IEnumerable<TagGroup> TagGroups { get; set; } = new HashSet<TagGroup>();
     }
 }
