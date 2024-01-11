@@ -9,5 +9,6 @@ namespace PoolingEngine.Domain.Repository
 {
     public interface IRequestItemRepository : IGenericRepository<RequestItem>
     {
+        public IEnumerable<RequestItem> PopulateRequestItem(RequestPooling requestPooling, List<TagGroup> tagGroups);
     }
 }
