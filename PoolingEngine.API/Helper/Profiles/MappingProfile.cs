@@ -18,6 +18,9 @@ namespace PoolingEngine.API.Helper.Profiles
             CreateMap<RequestItem, RequestItemDto>();
             CreateMap<RequestItemDto, RequestItem>();
             
+            CreateMap<TagDef, TagDefDto>();
+            CreateMap<TagDefDto, TagDef>();
+
             CreateMap<TagGroup, TagGroupDto>()
                 .ForMember(dto => dto.TagItems, opt => opt.MapFrom(x => x.TagItems));
 
