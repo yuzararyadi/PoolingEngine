@@ -1,4 +1,5 @@
-﻿using PoolingEngine.DataAccess.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PoolingEngine.DataAccess.Context;
 using PoolingEngine.Domain.Entities;
 using PoolingEngine.Domain.Repository;
 using System;
@@ -9,14 +10,34 @@ using System.Threading.Tasks;
 
 namespace PoolingEngine.DataAccess.Implementation
 {
-    public class RequestItemRepository : GenericRepository<RequestItem>, IRequestItemRepository
+    public class RequestItemRepository :  GenericInMemoryRepository<RequestItem>, IRequestItemRepository
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly InMemoryDbContext _inMemoryDbContext;
 
-        public RequestItemRepository(AppDbContext context) : base(context)
+        public RequestItemRepository(InMemoryDbContext inMemoryDbContext) : base(inMemoryDbContext)
         {
-            _dbcontext = context;
+            _inMemoryDbContext = inMemoryDbContext;
             
+        }
+
+        public IEnumerable<RequestItem> PopulateRequestItem(RequestPooling requestPooling, List<TagGroup> tagGroups)
+        {
+            List<RequestItem> requestItems = new List<RequestItem>();
+            foreach (int deviceitemId in requestPooling.DeviceItemIds)
+            {
+                RequestItem requestItem = new RequestItem()
+                {
+                    RequestPoolingId = requestPooling.Id.ToString(),
+                    DeviceItemId = deviceitemId,
+                    TagGroups = tagGroups,
+                    Priority = requestPooling.Priority
+                };
+                _inMemoryDbContext.RequestItems.Add(requestItem);
+
+                requestItems.Add(requestItem);
+            }
+
+            return requestItems;
         }
     }
 }
