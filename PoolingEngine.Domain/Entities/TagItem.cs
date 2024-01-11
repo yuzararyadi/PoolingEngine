@@ -15,6 +15,7 @@ namespace PoolingEngine.Domain.Entities
         public EnumDataType DataType { get; set; }
 
         public ICollection<TagGroup>? TagGroups { get; set; } = new HashSet<TagGroup>();
+        public ICollection<TagDef>? tagDefs { get; set; } = new HashSet<TagDef>();
     }
 
 }

@@ -22,6 +22,7 @@ namespace PoolingEngine.DataAccess.Implementation
             TagGroup = new TagGroupRepository(_dbcontext);
             TagItem = new TagItemRepository(_dbcontext);
             TagValue = new TagValueRepository(_dbcontext);
+            TagDef = new TagDefRepository(_dbcontext);
         }
         public IDeviceItemRepository DeviceItem { get; private set; }
 
@@ -32,6 +33,7 @@ namespace PoolingEngine.DataAccess.Implementation
         public ITagItemRepository TagItem { get; private set; }
 
         public ITagValueRepository TagValue { get; private set; }
+        public ITagDefRepository TagDef { get; private set; }
 
         public void Dispose()
         {
