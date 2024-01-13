@@ -18,7 +18,7 @@ namespace PoolingEngine.DataAccess.Implementation
             _dbcontext = context;
             _inMemoryDbContext = IMContext;
             DeviceItem = new DeviceItemRepository(_dbcontext);
-            RequestItem = new RequestItemRepository(_inMemoryDbContext);
+            //RequestItem = new RequestItemRepository(_inMemoryDbContext);
             TagGroup = new TagGroupRepository(_dbcontext);
             TagItem = new TagItemRepository(_dbcontext);
             TagValue = new TagValueRepository(_dbcontext);
@@ -26,7 +26,7 @@ namespace PoolingEngine.DataAccess.Implementation
         }
         public IDeviceItemRepository DeviceItem { get; private set; }
 
-        public IRequestItemRepository RequestItem { get; private set; }
+        //public IRequestItemRepository RequestItem { get; private set; }
 
         public ITagGroupRepository TagGroup { get; private set; }
 
