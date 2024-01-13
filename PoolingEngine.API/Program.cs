@@ -1,14 +1,22 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PoolingEngine.API.Helper;
+using PoolingEngine.API.Hub;
+using PoolingEngine.API.Worker;
 using PoolingEngine.DataAccess.Context;
 using PoolingEngine.DataAccess.Implementation;
 using PoolingEngine.Domain.Repository;
+using PoolingEngine.Domain.Repository.WorkerRepository;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.Configure <HostOptions>(x =>
+{
+    x.ServicesStartConcurrently = true;
+    x.ServicesStopConcurrently = false;
+});
 // Add services to the container.
 
+//builder.Services.AddHostedService<Worker>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +31,8 @@ builder.Services.AddDbContext<InMemoryDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
+builder.Services.AddSignalR();
+
 builder.Services.AddScoped<IPoolingExecution,PoolingExecution>();
 builder.Services.AddSingleton<IRequestItemRepository,RequestItemRepository>();
 
@@ -46,6 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapHub<PoolingBroadcastHub>("/PoolingBroadcast");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
