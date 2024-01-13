@@ -14,17 +14,19 @@ namespace PoolingEngine.API.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private IRequestItemRepository _requestItemRepository;
 
-        public PoolingController(IUnitOfWork unitOfWork, IMapper mapper)
+        public PoolingController(IUnitOfWork unitOfWork, IMapper mapper, IRequestItemRepository requestItemRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _requestItemRepository = requestItemRepository; 
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var requestItems = _unitOfWork.RequestItem.GetAllwithChild(x => x.TagGroups);
+            List<RequestItem> requestItems = _requestItemRepository.RequestItems();
             var requestItemsDto = _mapper.Map<List<RequestItemDto>>(requestItems);
             return Ok(requestItemsDto);
         }
@@ -43,18 +45,19 @@ namespace PoolingEngine.API.Controllers
             tagGroups = _unitOfWork.TagGroup.Find(x => requestPooling.TagGroupIds.Contains(x.Id)).ToList();
             if (tagGroups.Count == 0) return BadRequest();
 
-            var requestItemsDto = _mapper.Map<List<RequestItemDto>>(_unitOfWork.RequestItem.PopulateRequestItem(requestPooling, tagGroups));
-            _unitOfWork.InMemorySave();
-            return CreatedAtAction(nameof(CreatePoolingReqeust), requestItemsDto);
+            var requestItemsDto = _mapper.Map<List<RequestItemDto>>(_requestItemRepository.PopulateRequestItem(requestPooling, tagGroups));
+            //_unitOfWork.InMemorySave();
+            return CreatedAtAction(nameof(Get), requestItemsDto);
         }
 
         [HttpDelete("{id}")] 
         public IActionResult Delete(Guid id) 
         {
-            var requestItem = _unitOfWork.RequestItem.GetAll().FirstOrDefault(x => x.Id == id);
+            var requestItem = _requestItemRepository.RequestItems()
+                .Where(x => x.Id == id).FirstOrDefault();
+                
             if (requestItem == null) return NotFound();
-            _unitOfWork.RequestItem.Remove(requestItem);
-            _unitOfWork.InMemorySave();
+            _requestItemRepository.Remove(requestItem);
             return Ok(id);
         }
     }
