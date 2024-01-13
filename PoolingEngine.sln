@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingEngineGRPC", "Poolin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingWorker", "PoolingWorker\PoolingWorker.csproj", "{544A2391-1D57-4638-9874-E6229A09EB2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.API", "PoolingEngine.API\PoolingEngine.API.csproj", "{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingEngine.API", "PoolingEngine.API\PoolingEngine.API.csproj", "{28AFB7ED-6E91-461D-9DA8-EB22FAB54CB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.Domain", "PoolingEngine.Domain\PoolingEngine.Domain.csproj", "{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingEngine.Domain", "PoolingEngine.Domain\PoolingEngine.Domain.csproj", "{2692DB30-3395-41FF-91FE-7BB2C81EEEAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoolingEngine.DataAccess", "PoolingEngine.DataAccess\PoolingEngine.DataAccess.csproj", "{37C4499D-C44E-48A0-8B2E-9FE2CC024910}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolingEngine.DataAccess", "PoolingEngine.DataAccess\PoolingEngine.DataAccess.csproj", "{37C4499D-C44E-48A0-8B2E-9FE2CC024910}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
