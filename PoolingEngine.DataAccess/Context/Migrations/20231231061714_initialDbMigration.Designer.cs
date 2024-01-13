@@ -12,8 +12,8 @@ using PoolingEngine.DataAccess.Context;
 namespace PoolingEngine.DataAccess.Context.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231224125542_InitialDbCreation")]
-    partial class InitialDbCreation
+    [Migration("20231231061714_initialDbMigration")]
+    partial class initialDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,21 +39,6 @@ namespace PoolingEngine.DataAccess.Context.Migrations
                     b.ToTable("DeviceItemTagGroup");
                 });
 
-            modelBuilder.Entity("DeviceItemTagItem", b =>
-                {
-                    b.Property<int>("DeviceItemsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagItemsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DeviceItemsId", "TagItemsId");
-
-                    b.HasIndex("TagItemsId");
-
-                    b.ToTable("DeviceItemTagItem");
-                });
-
             modelBuilder.Entity("PoolingEngine.Domain.Entities.DeviceItem", b =>
                 {
                     b.Property<int>("Id")
@@ -74,25 +59,6 @@ namespace PoolingEngine.DataAccess.Context.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeviceItems");
-                });
-
-            modelBuilder.Entity("PoolingEngine.Domain.Entities.RequestItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("DeviceItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeviceItemId");
-
-                    b.ToTable("RequestItems");
                 });
 
             modelBuilder.Entity("PoolingEngine.Domain.Entities.TagGroup", b =>
@@ -134,12 +100,7 @@ namespace PoolingEngine.DataAccess.Context.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid?>("RequestItemId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RequestItemId");
 
                     b.ToTable("TagItems");
                 });
@@ -152,14 +113,14 @@ namespace PoolingEngine.DataAccess.Context.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("DeviceId")
+                    b.Property<int>("DeviceItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("RequestItemId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TagId")
+                    b.Property<int>("TagItemId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("TimeStamp")
@@ -204,39 +165,6 @@ namespace PoolingEngine.DataAccess.Context.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DeviceItemTagItem", b =>
-                {
-                    b.HasOne("PoolingEngine.Domain.Entities.DeviceItem", null)
-                        .WithMany()
-                        .HasForeignKey("DeviceItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PoolingEngine.Domain.Entities.TagItem", null)
-                        .WithMany()
-                        .HasForeignKey("TagItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PoolingEngine.Domain.Entities.RequestItem", b =>
-                {
-                    b.HasOne("PoolingEngine.Domain.Entities.DeviceItem", "DeviceItem")
-                        .WithMany()
-                        .HasForeignKey("DeviceItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeviceItem");
-                });
-
-            modelBuilder.Entity("PoolingEngine.Domain.Entities.TagItem", b =>
-                {
-                    b.HasOne("PoolingEngine.Domain.Entities.RequestItem", null)
-                        .WithMany("TagItem")
-                        .HasForeignKey("RequestItemId");
-                });
-
             modelBuilder.Entity("TagGroupTagItem", b =>
                 {
                     b.HasOne("PoolingEngine.Domain.Entities.TagGroup", null)
@@ -250,11 +178,6 @@ namespace PoolingEngine.DataAccess.Context.Migrations
                         .HasForeignKey("TagItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PoolingEngine.Domain.Entities.RequestItem", b =>
-                {
-                    b.Navigation("TagItem");
                 });
 #pragma warning restore 612, 618
         }

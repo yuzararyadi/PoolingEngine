@@ -17,5 +17,6 @@ namespace PoolingEngine.DataAccess.Context
         }
 
         public DbSet<RequestItem> RequestItems => Set<RequestItem>();
+        public DbSet<TagGroup> TagGroups => Set<TagGroup>();
     }
 }
