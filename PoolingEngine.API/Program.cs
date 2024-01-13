@@ -23,6 +23,8 @@ builder.Services.AddDbContext<InMemoryDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IPoolingExecution,PoolingExecution>();
+builder.Services.AddSingleton<IRequestItemRepository,RequestItemRepository>();
 
 var app = builder.Build();
 
