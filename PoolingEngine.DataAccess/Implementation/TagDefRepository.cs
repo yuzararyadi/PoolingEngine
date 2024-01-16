@@ -16,5 +16,10 @@ namespace PoolingEngine.DataAccess.Implementation
         {
             _dbcontext = dbContext;
         }
+        public List<TagDef> ListDeviceTagDef(DeviceItem deviceItem, List<TagItem>tagItems)
+        {
+            var listTagDefs = _dbcontext.TagDefs.Where(x=> x.DeviceItem == deviceItem && tagItems.Contains(x.TagItem));
+            return listTagDefs.ToList();
+        }
     }
 }

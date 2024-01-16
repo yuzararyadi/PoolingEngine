@@ -9,6 +9,7 @@ namespace PoolingEngine.Domain.Repository
 {
     public interface ITagDefRepository : IGenericRepository<TagDef>
     {
+        List<TagDef> ListDeviceTagDef(DeviceItem deviceItem, List<TagItem> tagItems);
     }
 
 }

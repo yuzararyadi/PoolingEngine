@@ -30,7 +30,7 @@ namespace PoolingEngine.API.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id) 
-        { 
+        {
             var tagDef = _unitOfWork.TagDef.GetAllwithChild(x => x.DeviceItem, y => y.TagItem).Where(z => z.Id == id).FirstOrDefault();
             if (tagDef == null) return NotFound();
             var tagDefDto = _mapper.Map<TagDefDto>(tagDef);
