@@ -17,5 +17,6 @@ namespace PoolingEngine.DataAccess.Context
         public DbSet<TagGroup> TagGroups => Set<TagGroup>();
         public DbSet<TagItem> TagItems => Set<TagItem>();
         public DbSet<TagValue> TagValues => Set<TagValue>();
+        public DbSet<TagDef> TagDefs => Set<TagDef>();
     }
 }
