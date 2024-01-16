@@ -33,8 +33,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 builder.Services.AddSignalR();
 
-builder.Services.AddScoped<IPoolingExecution,PoolingExecution>();
+//builder.Services.AddScoped<IPoolingExecution,PoolingExecution>();
 builder.Services.AddSingleton<IRequestItemRepository,RequestItemRepository>();
+builder.Services.AddSingleton<IOpcUaRepository,OpcUaRepository>();
 
 var app = builder.Build();
 
