@@ -19,8 +19,6 @@ namespace PoolingEngine.DataAccess.Implementation
         {
             return _requestItems;
         }
-        //public IQueryable<RequestItem> RequestItems => _requestItems.AsQueryable();
-
         public IQueryable<RequestItem> GetAllwithChild(params Expression<Func<RequestItem, object>>[] includeExpressions)
         {
             IQueryable<RequestItem> set = (IQueryable<RequestItem>)_requestItems;
@@ -40,18 +38,8 @@ namespace PoolingEngine.DataAccess.Implementation
             _requestItems.Remove(item);
         }
 
-
-        //private readonly InMemoryDbContext _inMemoryDbContext;
-
-        //public RequestItemRepository(InMemoryDbContext inMemoryDbContext) : base(inMemoryDbContext)
-        //{
-        //    _inMemoryDbContext = inMemoryDbContext;
-
-        //}
-
         public IEnumerable<RequestItem> PopulateRequestItem(RequestPooling requestPooling, List<TagGroup> tagGroups)
         {
-            //_inMemoryDbContext.TagGroups.AddRange(tagGroups);
             List<RequestItem> requestItems = new List<RequestItem>();
             foreach (int deviceitemId in requestPooling.DeviceItemIds)
             {
@@ -65,8 +53,8 @@ namespace PoolingEngine.DataAccess.Implementation
                 _requestItems.Add(requestItem);
                 requestItems.Add(requestItem);
             }
-
             return requestItems;
         }
+
     }
 }
