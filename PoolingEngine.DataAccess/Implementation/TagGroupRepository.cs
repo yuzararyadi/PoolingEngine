@@ -34,6 +34,16 @@ namespace PoolingEngine.DataAccess.Implementation
                 evalTagGroup.TagItems.Add(tagItem);
             }
         }
+        public List<TagItem> LinkedTagItems(List<TagGroup> tagGroups)
+        {
+            List<TagItem> tagItems = new List<TagItem>();
+           
+            foreach (var tagGroup in _dbcontext.TagGroups.Where(x => tagGroups.Contains(x)).Include(y => y.TagItems))
+            { 
+                tagItems.AddRange(tagGroup.TagItems);
+            };
+            return tagItems;
+        }
 
     }
 }

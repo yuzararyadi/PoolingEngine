@@ -23,7 +23,7 @@ namespace PoolingEngine.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var tagGroups = _unitOfWork.TagGroup.GetAll();
+            var tagGroups = _unitOfWork.TagGroup.GetAllwithChild(x => x.TagItems);
             var tagGroupsDto = _mapper.Map<List<TagGroupDto>>(tagGroups);
             return Ok(tagGroupsDto);
         }
@@ -31,7 +31,7 @@ namespace PoolingEngine.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetbyId(int id)
         {
-            var tagGroup = _unitOfWork.TagGroup.GetById(id);
+            var tagGroup = _unitOfWork.TagGroup.GetAllwithChild(x => x.TagItems).Where(x => x.Id == id);
             if(tagGroup == null) return NotFound();
             var tagGroupDto = _mapper.Map<TagGroupDto>(tagGroup);
             return Ok(tagGroupDto);
@@ -65,6 +65,20 @@ namespace PoolingEngine.API.Controllers
             _unitOfWork.Save();
             return Ok(tagGroupDto);
         }
-
+        [HttpPut("{id}/linkTagItem")]
+        public IActionResult LinkTagItem(int id, List<int> tagItemIds)
+        {
+            var tagGroup = _unitOfWork.TagGroup.GetById(id);
+            if (tagGroup == null) return NotFound();
+            List<TagItem> tagItems = new List<TagItem>();
+            foreach(int tagItemId in tagItemIds)
+            {
+                var tagItem = _unitOfWork.TagItem.GetById(tagItemId);
+                if (tagItem != null) tagItems.Add(tagItem);
+            }
+            _unitOfWork.TagGroup.UpdateLinkTagItems(tagGroup, tagItems);
+            _unitOfWork.Save();
+            return Ok(tagGroup);
+        }
     }
 }
