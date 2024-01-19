@@ -15,7 +15,6 @@ namespace PoolingEngine.Domain.Repository
         ITagValueRepository TagValue { get; }
         ITagDefRepository TagDef { get; }
         int Save();
-        int InMemorySave();
 
     }
 }
