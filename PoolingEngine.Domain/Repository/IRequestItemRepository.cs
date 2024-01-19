@@ -17,6 +17,7 @@ namespace PoolingEngine.Domain.Repository
         //void SaveChanges();
         IQueryable<RequestItem> GetAllwithChild(params Expression<Func<RequestItem, object>>[] includeExpressions);
         IEnumerable<RequestItem> PopulateRequestItem(RequestPooling requestPooling, List<TagGroup> tagGroups);
+        List<TagValue> ExecuteRequestItem();
 
     }
 }
