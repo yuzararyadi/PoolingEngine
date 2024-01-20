@@ -8,6 +8,7 @@
     <ProjectReference Include="..\PoolingEngine.Domain\PoolingEngine.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Context\Migrations\" />
     <Folder Include="Implementation\WorkerRepository\" />
   </ItemGroup>
   <ItemGroup>
