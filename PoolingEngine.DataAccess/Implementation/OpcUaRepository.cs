@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Opc.UaFx.Client;
 using Opc.UaFx;
 using System.Net.Sockets;
+using PoolingEngine.Domain.Entities.Enum;
 
 namespace PoolingEngine.DataAccess.Implementation
 {
@@ -61,9 +62,29 @@ namespace PoolingEngine.DataAccess.Implementation
             throw new NotImplementedException();
         }
 
-        public void OpcWrite()
+        public void OpcWrite(DeviceItem deviceItem, TagDef tagDef, WriteItem writeItem, EnumRequestType enumRequestType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!(_opcClient.State == OpcClientState.Connected || _opcClient.State == OpcClientState.Reconnected))
+                    OpcUAConnect();
+                OpcNodeId nodeId = tagDef.MapAddress;
+                if (enumRequestType == EnumRequestType.WRITE)
+                {
+                    int value = (int)writeItem.Value;
+                    _opcClient.WriteNode(nodeId, value);
+                }
+                else
+                {
+                    bool value = (bool)writeItem.Value;
+                    _opcClient.WriteNode(nodeId, value);
+                }
+
+            }
+            catch
+            {
+                return;
+            }
         }
     }
 }
