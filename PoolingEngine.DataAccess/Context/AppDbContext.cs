@@ -7,7 +7,7 @@ namespace PoolingEngine.DataAccess.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
+           
         }
 
         public DbSet<DeviceItem> DeviceItems => Set<DeviceItem>();
