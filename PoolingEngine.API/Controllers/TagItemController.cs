@@ -49,6 +49,9 @@ namespace PoolingEngine.API.Controllers
         {
             var tagItem = _unitOfWork.TagItem.GetById(id);
             if (tagItem == null) return NotFound();
+
+            var childTagDeftoDel = _unitOfWork.TagDef.GetAllwithChild(x=>x.TagItem).Where(x=>x.TagItem == tagItem).ToList();
+            if (childTagDeftoDel.Count > 0) _unitOfWork.TagDef.RemoveRange(childTagDeftoDel);
             _unitOfWork.TagItem.Remove(tagItem);
             _unitOfWork.Save();
             return Ok();
